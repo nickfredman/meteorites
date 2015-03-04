@@ -4,17 +4,40 @@ if (Meteor.isClient) {
   // counter starts at 0
   Session.setDefault('counter', 0);
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
+  Template.body.helpers({
+    listdb: function() {
+      return Listdb.find({});
     }
   });
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
+  Template.body.events({
+    "submit .new-member": function(e) {
+      e.preventDefault();
+      
+      var firstname = $('#firstName').val();
+      var lastname = $('#lastName').val();
+      var email = $('#email').val();
+     
+      Listdb.insert({
+        name: {
+          firstName:firstname,
+          lastName: lastname
+        },
+        email:email
+      });
+
+      $('#firstName').val("");
+      $('#lastName').val("");
+      $('#email').val("");
+
+    },
+
+    "click .delete": function(e) {
+      e.preventDefault();
+      var d = Blaze.getData(event.target);
+      Listdb.remove({_id:d._id});
     }
+
   });
 }
 

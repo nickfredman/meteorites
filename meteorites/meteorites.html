@@ -3,12 +3,28 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+  <h1>Members</h1>
 
-  {{> hello}}
+  <h2>Add A Member</h2>
+    <form class="new-member">
+  <input type="text" id="firstName" placeholder="Enter First Name" />
+  <br/>
+  <input type="text" id="lastName" placeholder="Enter Last Name" />
+  <br/>
+  <input type="text" id="email" placeholder="Enter Email" />
+  <br/>
+      <input type="submit" />
+    </form>
+  <ul>
+      {{#each listdb}}
+        {{> member}}
+      {{/each}}
+  </ul>
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="member">
+  <li data-id="{{_id}}">
+    {{name.firstName}} {{name.lastName}} 
+    <a href="#" class="delete">delete</a>
+  </li>
 </template>
