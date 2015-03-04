@@ -1,6 +1,9 @@
 
 
 if (Meteor.isClient) {
+  Meteor.startup(function () {
+    new WOW().init();
+  });
   // counter starts at 0
   Session.setDefault('counter', 0);
 
@@ -14,7 +17,7 @@ if (Meteor.isClient) {
   Template.body.events({
     "submit .new-member": function(e) {
       e.preventDefault();
-      
+
       var firstname = $('#firstName').val();
       var lastname = $('#lastName').val();
       var email = $('#email').val();
@@ -24,7 +27,7 @@ if (Meteor.isClient) {
       var twitter = $('#twitter').val();
       var linkIn = $('#linkIn').val();
       var faceBook = $('#faceBook').val();
-     
+
       Listdb.insert({
         name: {
           firstName:firstname,
@@ -73,26 +76,26 @@ if (Meteor.isServer) {
           aspirations: 'I want to code',
           skills:['PCI','commuting'],
           contact:{twitter: '@marielmilito', linkedIn: 'Mariel Milito', faceBook: 'Mariel Dickson Milito'}
-          });
+        });
 
-          Listdb.insert({
+        Listdb.insert({
           name: {firstName: 'Charlie', lastName: 'Fox'},
           email: 'webartificer@gmail.com',
           priorWork: 'Designer',
           aspirations: 'Code Ninja',
           skills:['UI'],
-          contact:{twitter: '@oakseven', linkedIn: 'webartificer'}    
-          });
+          contact:{twitter: '@oakseven', linkedIn: 'webartificer'}
+        });
 
-          Listdb.insert({
+        Listdb.insert({
           name: {firstName: 'Charles', lastName: 'Harrod'},
           email: 'sam.charles.harrod@gmail.com',
           priorWork: 'Retail Mgmt',
           aspirations: 'Badass',
           skills:['not really'],
-          contact:{linkedIn: 'Charles Harrod', faceBook: 'Charles Harrod'}    
-          });
-    } 
+          contact:{linkedIn: 'Charles Harrod', faceBook: 'Charles Harrod'}
+        });
+    }
     //console.log(Listdb.find().fetch());
   });
 }

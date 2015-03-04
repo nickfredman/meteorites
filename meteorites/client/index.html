@@ -4,10 +4,10 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> 
+<!--[if gt IE 8]><!-->
 <!-- meteor gives this error: bad formatting in HTML template -->
-<!-- <html class="no-js" lang=""> --> 
-<!--<![endif]--> 
+<!-- <html class="no-js" lang=""> -->
+<!--<![endif]-->
 
     <head>
         <meta charset="utf-8">
@@ -22,7 +22,8 @@
         <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway:400,300" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.1/animate.css">
-        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <!-- <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script> -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/wow/1.0.3/wow.min.js"></script>
     </head>
     <body>
         <nav>
@@ -49,9 +50,10 @@
                 <h1>Meet the Refactor U Meteorites</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam molestias laudantium fuga accusantium iure, ex a voluptas eligendi excepturi eos. Culpa cupiditate molestias facere nesciunt totam, maiores laborum, possimus unde.</p>
                 <div class="row clearfix">
-                    
+
                     {{#each listdb}}
                         {{> member}}
+                        {{> editModal }}
                     {{/each}}
 
                     <!--<div class="column third">
@@ -81,6 +83,12 @@
                    -->
                 </div>
             </div>
+            <div>
+                {{> createModal }}
+            </div>
+            <div>
+                {{> editModal }}
+            </div>
         </section>
 
         <footer>
@@ -88,11 +96,7 @@
         </footer>
 
 
-        <script src="../main.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/wow/1.0.3/wow.min.js"></script>
-        <script>
-            new WOW().init();
-        </script>
+
 
     </body>
 <!-- </html> -->
@@ -103,6 +107,64 @@
             <!-- need image data -->
             <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg">
         </div>
-        <div class="member_name">{{name.firstName}} {{name.lastName}}</div>
+        <div class="member_name">{{name.firstName}} {{name.lastName}}
+        </div>
+        <div>
+            <a href="#" class="view-modal">View Details</a>
+            <a href="#" class="edit-modal">Edit Details</a>
+            <a href="#" class="delete">Delete Meteorite</a>
+        </div>
+    </div>
+</template>
+
+<template name="createModal">
+    <div class="modal create-modal">
+        <form>
+            <label>First Name:</label>
+            <input type="text" id="firstName" placeholder="Bill">
+            <label>Last Name:</label>
+            <input type="text" id="lastName" placeholder="Smith">
+            <label>Email Address:</label>
+            <input type="email" id="email" placeholder="bill@gmail.com">
+            <label>Prior Work Experience:</label>
+            <textarea type="text" id="priorWork" placeholder="Mowing lawns, tying string into tin cans, making beds, brushing teeth..."></textarea>
+            <label>Work Aspirations:</label>
+            <input type="text" id="aspirations" placeholder="Launch a spaceshuttle">
+            <label>Skills:</label>
+            <input type="text" id="skills" placeholder="Laundry, dishes, html">
+            <label>Twitter Handle:</label>
+            <input type="text" id="twitter" placeholder="@bsmith">
+            <label>Linked In:</label>
+            <input type="url" id="linkIn" placeholder="www.linkedin.com/bsmith">
+            <label>Facebook:</label>
+            <input type="url" id="faceBook" placeholder="www.facebook.com/bsmith">
+            <button>Submit</button>
+        </form>
+    </div>
+</template>
+
+<template name="editModal">
+    <div class="modal editable-modal">
+        <form>
+            <label>First Name:</label>
+            <input type="text" value="{{name.firstName}}">
+            <label>Last Name:</label>
+            <input type="text" value="{{name.lastName}}">
+            <label>Email Address:</label>
+            <input type="email" value="{{email}}">
+            <label>Prior Work Experience:</label>
+            <textarea type="text" value="{{priorWork}}"></textarea>
+            <label>Work Aspirations:</label>
+            <input type="text" value="{{aspirations}}">
+            <label>Skills:</label>
+            <input type="text" value="{{skills}}">
+            <label>Twitter Handle:</label>
+            <input type="text" value="{{contact.twitter}}">
+            <label>Linked In:</label>
+            <input type="url" value="{{contact.linkIn}}">
+            <label>Facebook:</label>
+            <input type="url" value="{{contact.faceBook}}">
+            <button>Update</button>
+        </form>
     </div>
 </template>
