@@ -1,14 +1,28 @@
 <head>
-  <title>meteorites</title>
+  <title>display data</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
 
-  {{> hello}}
+  <div class="container">
+    <header>
+      <h1>Members</h1>
+    
+    <h2>Add A Member</h2>
+    <form class="new-member">
+      <input type="text" name="name" placeholder="Enter Name" />
+    </form>
+    </header>
+
+    <ul>
+      {{#each members}}
+        {{> member}}
+      {{/each}}
+    </ul>
+  </div>
+
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="member">
+  <li data-id="{{_id}}">{{name}} <a href="#" class="delete">delete</a></li>
 </template>
