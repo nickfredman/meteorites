@@ -4,17 +4,61 @@ if (Meteor.isClient) {
   // counter starts at 0
   Session.setDefault('counter', 0);
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
+  Template.body.helpers({
+    listdb: function() {
+
+      return Listdb.find({});
     }
   });
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
+  Template.body.events({
+    "submit .new-member": function(e) {
+      e.preventDefault();
+      
+      var firstname = $('#firstName').val();
+      var lastname = $('#lastName').val();
+      var email = $('#email').val();
+      var priorWork = $('#priorWork').val();
+      var aspirations = $('#aspirations').val();
+      var skills = $('#skills').val();
+      var twitter = $('#twitter').val();
+      var linkIn = $('#linkIn').val();
+      var faceBook = $('#faceBook').val();
+     
+      Listdb.insert({
+        name: {
+          firstName:firstname,
+          lastName: lastname
+        },
+        email:email,
+        priorWork:priorWork,
+        aspirations: aspirations,
+        skills: skills,
+        contact: {
+          twitter:twitter,
+          linkIn:linkIn,
+          faceBook:facebook
+        }
+      });
+
+      $('#firstName').val("");
+      $('#lastName').val("");
+      $('#email').val("");
+      $('#priorWork').val("");
+      $('#aspirations').val("");
+      $('#skills').val("");
+      $('#twitter').val("");
+      $('#linkIn').val("");
+      $('#faceBook').val("");
+
+    },
+
+    "click .delete": function(e) {
+      e.preventDefault();
+      var d = Blaze.getData(event.target);
+      Listdb.remove({_id:d._id});
     }
+
   });
 }
 
