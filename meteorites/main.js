@@ -6,48 +6,6 @@ if (Meteor.isClient) {
   });
 
 
-    // Add a new member
-    // $( document ).on( "click", ".createOverlay", function( event ) {
-    //     $('#overlay').css('display','block');
-    //     $('.create').css('display','block');
-
-    // });
-
-    // Add a new member - closing
-    // $( document ).on( "click", ".closeCreate", function( event ) {
-    //     $('#overlay').css('display','none');
-    //     $('.create').css('display','none');
-
-    // });
-
-    // View a member
-    // $( document ).on( "click", ".viewOverlay", function( event ) {
-    //     $('#overlay').css('display','block');
-    //     $('.view').css('display','block');
-
-    // });
-
-    // // View a member - closing
-    // $( document ).on( "click", ".closeView", function( event ) {
-    //     $('#overlay').css('display','none');
-    //     $('.view').css('display','none');
-    // });
-
-    // Edit a member - pencil
-    // $( document ).on( "click", ".editOverlay", function( event ) {
-    //     $('.view').css('display','none');
-    //     $('.edit').css('display','block');
-
-    // });
-
-    // // Edit a member - pencil - closing
-    // $( document ).on( "click", ".closeEdit", function( event ) {
-    //     $('.edit').css('display','none');
-    //     $('#overlay').css('display','none');
-
-    // });
-
-
   // counter starts at 0
   Session.setDefault('counter', 0);
 
