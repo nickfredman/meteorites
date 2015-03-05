@@ -17,23 +17,26 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.body.helpers({
+  Template.viewModal.helpers({
     viewamember: function() {
-      return "test";
+      var memberId = Session.get('selectedMember');
+      var d = Listdb.find({_id:memberId}).fetch();
+      return d;
     }
   });
 
   Template.body.events({
     //View a member
     "click .viewOverlay": function(e) {
-      e.preventDefault();
+      //e.preventDefault();
       $('#overlay').css('display','block');
       $('.view').css('display','block');
 
       var d = Blaze.getData(event.target);
-      var data = Listdb.findOne({_id:d._id});
-      console.log(data);
-      return data;
+      Session.set('selectedMember', d._id); 
+      //var data = Listdb.findOne({_id:d._id});
+      //console.log(data);
+      //return data;
     }, 
     
     // View a member - closing
@@ -68,7 +71,8 @@ if (Meteor.isClient) {
       $('.view').css('display','none');
       $('.edit').css('display','block');
       var d = Blaze.getData(event.target);
-      console.log("member object:", d);
+      Session.set('selectedMember', d._id);
+      
       // get data from form
       // var firstname = $('#firstName').val();
       // var lastname = $('#lastName').val();
@@ -98,7 +102,7 @@ if (Meteor.isClient) {
       //   }
       //   }
       // });
-      return false;
+      //return false;
     },
 
     // Edit a member - pencil - closing

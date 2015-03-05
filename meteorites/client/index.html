@@ -74,6 +74,7 @@
 
         </footer>
 
+    {{>viewModal}}
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
@@ -133,7 +134,7 @@
 
 
 <template name="viewModal">
-    <div class="column third viewmod" data-in="{{_id}}">
+    <div class="column third" data-in="{{_id}}">
         <div class="topButtons"><i class="fa fa-pencil editOverlay"></i> &nbsp;<i class="fa fa-times closeView"></i></div>
         <div class="avatar">
             <!-- need image data -->
