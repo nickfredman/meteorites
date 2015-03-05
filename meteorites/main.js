@@ -4,6 +4,46 @@ if (Meteor.isClient) {
   Meteor.startup(function () {
     new WOW().init();
   });
+
+
+
+    $( document ).on( "click", ".createOverlay", function( event ) {
+        $('#overlay').css('display','block');
+        $('.create').css('display','block');
+
+    });
+
+    $( document ).on( "click", ".viewOverlay", function( event ) {
+        $('#overlay').css('display','block');
+        $('.view').css('display','block');
+
+    });
+
+    $( document ).on( "click", ".closeCreate", function( event ) {
+        $('#overlay').css('display','none');
+        $('.create').css('display','none');
+
+    });
+
+    $( document ).on( "click", ".closeView", function( event ) {
+        $('#overlay').css('display','none');
+        $('.view').css('display','none');
+
+    });
+
+    $( document ).on( "click", ".editOverlay", function( event ) {
+        $('.view').css('display','none');
+        $('.edit').css('display','block');
+
+    });
+
+    $( document ).on( "click", ".closeEdit", function( event ) {
+        $('.edit').css('display','none');
+        $('#overlay').css('display','none');
+
+    });
+
+
   // counter starts at 0
   Session.setDefault('counter', 0);
 

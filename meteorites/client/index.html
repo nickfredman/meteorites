@@ -26,11 +26,21 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/wow/1.0.3/wow.min.js"></script>
     </head>
     <body>
+        <div id="overlay"></div>
+        <div class="modal create wow fadeIn">
+            {{> createModal }}
+        </div>
+        <div class="modal view wow fadeIn">
+            {{> viewModal }}
+        </div>
+        <div class="modal edit wow fadeIn">
+            {{> editModal }}
+        </div>
         <nav>
             <div class="container">
                 <a href="#"><img src="img/logo_nav.png" class="logo" alt="Refactor U Meteorites"></a>
                 <ul>
-                    <li><a href="#" class="wow rubberBand">Add A New Meteorite</a></li>
+                    <li><a href="#" class="wow rubberBand createOverlay">Add A New Meteorite</a></li>
                 </ul>
             </div>
         </nav>
@@ -53,42 +63,11 @@
 
                     {{#each listdb}}
                         {{> member}}
-                        {{> editModal }}
                     {{/each}}
 
-                    <!--<div class="column third">
-                        <div class="avatar wow bounceIn" data-wow-offset="100"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"></div>
-                        <div class="member_name">Member's Name</div>
-                    </div>
-                    <div class="column third">
-                        <div class="avatar wow bounceIn" data-wow-offset="100"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg"></div>
-                        <div class="member_name">Member's Name</div>
-                    </div>
-                    <div class="column third">
-                        <div class="avatar wow bounceIn" data-wow-offset="100"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/BillSKenney/128.jpg"></div>
-                        <div class="member_name">Member's Name</div>
-                    </div>
-                    <div class="column third">
-                        <div class="avatar wow bounceIn" data-wow-offset="100"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/jennyshen/128.jpg"></div>
-                        <div class="member_name">Member's Name</div>
-                    </div>
-                    <div class="column third">
-                        <div class="avatar wow bounceIn" data-wow-offset="100"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/fatihturan/128.jpg"></div>
-                        <div class="member_name">Member's Name</div>
-                    </div>
-                    <div class="column third">
-                        <div class="avatar wow bounceIn" data-wow-offset="100"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/clementc/128.jpg"></div>
-                        <div class="member_name">Member's Name</div>
-                    </div>
-                   -->
                 </div>
             </div>
-            <div>
-                {{> createModal }}
-            </div>
-            <div>
-                {{> editModal }}
-            </div>
+
         </section>
 
         <footer>
@@ -96,7 +75,7 @@
         </footer>
 
 
-
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     </body>
 <!-- </html> -->
@@ -105,66 +84,67 @@
     <div class="column third" data-in="{{_id}}">
         <div class="avatar wow bounceIn" data-wow-offset="100">
             <!-- need image data -->
-            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg">
+            <a href="#" class="viewOverlay"><img src="/img/no_avatar.jpg"></a>
         </div>
         <div class="member_name">{{name.firstName}} {{name.lastName}}
         </div>
-        <div>
-            <a href="#" class="view-modal">View Details</a>
-            <a href="#" class="edit-modal">Edit Details</a>
-            <a href="#" class="delete">Delete Meteorite</a>
-        </div>
+
     </div>
 </template>
 
 <template name="createModal">
-    <div class="modal create-modal">
+    <div class="create-modal">
+        <div class="topButtons"><i class="fa fa-times closeCreate"></i></div>
+        <h2>Add A New Meteorite</h2>
         <form>
-            <label>First Name:</label>
-            <input type="text" id="firstName" placeholder="Bill">
-            <label>Last Name:</label>
-            <input type="text" id="lastName" placeholder="Smith">
-            <label>Email Address:</label>
-            <input type="email" id="email" placeholder="bill@gmail.com">
-            <label>Prior Work Experience:</label>
-            <textarea type="text" id="priorWork" placeholder="Mowing lawns, tying string into tin cans, making beds, brushing teeth..."></textarea>
-            <label>Work Aspirations:</label>
-            <input type="text" id="aspirations" placeholder="Launch a spaceshuttle">
-            <label>Skills:</label>
-            <input type="text" id="skills" placeholder="Laundry, dishes, html">
-            <label>Twitter Handle:</label>
-            <input type="text" id="twitter" placeholder="@bsmith">
-            <label>Linked In:</label>
-            <input type="url" id="linkIn" placeholder="www.linkedin.com/bsmith">
-            <label>Facebook:</label>
-            <input type="url" id="faceBook" placeholder="www.facebook.com/bsmith">
+            <input type="text" id="firstName" placeholder="First Name">
+            <input type="text" id="lastName" placeholder="Last Name">
+            <input type="email" id="email" placeholder="Please enter your email address">
+            <textarea type="text" id="priorWork" placeholder="Please list any prior experience"></textarea>
+            <input type="text" id="aspirations" placeholder="List your aspirations">
+            <input type="text" id="skills" placeholder="Skills">
+            <input type="text" id="twitter" placeholder="Twitter">
+            <input type="url" id="linkIn" placeholder="LinkedIn">
+            <input type="url" id="faceBook" placeholder="Facebook">
             <button>Submit</button>
         </form>
     </div>
 </template>
 
 <template name="editModal">
-    <div class="modal editable-modal">
+    <div class="editable-modal">
+        <div class="topButtons"><i class="fa fa-times closeEdit"></i></div>
+        <h2>Edit Your Details</h2>
         <form>
-            <label>First Name:</label>
-            <input type="text" value="{{name.firstName}}">
-            <label>Last Name:</label>
-            <input type="text" value="{{name.lastName}}">
-            <label>Email Address:</label>
-            <input type="email" value="{{email}}">
-            <label>Prior Work Experience:</label>
-            <textarea type="text" value="{{priorWork}}"></textarea>
-            <label>Work Aspirations:</label>
-            <input type="text" value="{{aspirations}}">
-            <label>Skills:</label>
-            <input type="text" value="{{skills}}">
-            <label>Twitter Handle:</label>
-            <input type="text" value="{{contact.twitter}}">
-            <label>Linked In:</label>
-            <input type="url" value="{{contact.linkIn}}">
-            <label>Facebook:</label>
-            <input type="url" value="{{contact.faceBook}}">
-            <button>Update</button>
+            <input type="text" id="firstName" placeholder="First Name">
+            <input type="text" id="lastName" placeholder="Last Name">
+            <input type="email" id="email" placeholder="Please enter your email address">
+            <textarea type="text" id="priorWork" placeholder="Please list any prior experience"></textarea>
+            <input type="text" id="aspirations" placeholder="List your aspirations">
+            <input type="text" id="skills" placeholder="Skills">
+            <input type="text" id="twitter" placeholder="Twitter">
+            <input type="url" id="linkIn" placeholder="LinkedIn">
+            <input type="url" id="faceBook" placeholder="Facebook">
+            <button>Submit</button>
+            <p><a href="#">Delete Member</a></p>
         </form>
+    </div>
+</template>
+
+
+<template name="viewModal">
+    <div class="column third" data-in="{{_id}}">
+        <div class="topButtons"><i class="fa fa-pencil editOverlay"></i> &nbsp;<i class="fa fa-times closeView"></i></div>
+        <div class="avatar">
+            <!-- need image data -->
+            <img src="/img/no_avatar.jpg">
+        </div>
+        <span class="info first">Name: {{name.firstName}} {{name.firstName}}</span>
+        <span class="info">Email: {{email}}</span>
+        <span class="info">Prior Work Experience: {{priorwork}}</span>
+        <span class="info">Aspirations: {{aspirations}}</span>
+        <span class="info">Skills: {{skills}}</span>
+        <span class="info first"><a href="{{contact.linkIn}}"><i class="fa fa-linkedin-square fa-2x"></i></a> <a href="{{contact.faceBook}}"><i class="fa fa-facebook-square fa-2x"></i></a> <a href="{{contact.twitter}}"><i class="fa fa-twitter-square fa-2x"></i></a></span>
+
     </div>
 </template>
