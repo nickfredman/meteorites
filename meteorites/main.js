@@ -20,31 +20,24 @@ if (Meteor.isClient) {
   Template.viewModal.helpers({
     viewamember: function() {
       var memberId = Session.get('selectedMember');
-      var d = Listdb.find({_id:memberId}).fetch();
-      return d;
+      return Listdb.find({_id:memberId}).fetch();
     }
   });
 
   Template.body.events({
     //View a member
     "click .viewOverlay": function(e) {
-      //e.preventDefault();
       $('#overlay').css('display','block');
       $('.view').css('display','block');
 
       var d = Blaze.getData(event.target);
       Session.set('selectedMember', d._id); 
-      //var data = Listdb.findOne({_id:d._id});
-      //console.log(data);
-      //return data;
     }, 
     
     // View a member - closing
     "click .closeView": function(e) {
-      e.preventDefault();
       $('#overlay').css('display','none');
       $('.view').css('display','none');
-      return false;
     },
 
     // Add a new member
@@ -67,47 +60,25 @@ if (Meteor.isClient) {
 
     // Edit a member 
     "click .editOverlay": function(e) {
-      e.preventDefault();
       $('.view').css('display','none');
       $('.edit').css('display','block');
-      var d = Blaze.getData(event.target);
-      Session.set('selectedMember', d._id);
+      var memberId = Session.get('selectedMember');
+      var data = Listdb.find({_id:memberId}).fetch();
       
-      // get data from form
-      // var firstname = $('#firstName').val();
-      // var lastname = $('#lastName').val();
-      // var email = $('#email').val();
-      // var priorWork = $('#priorWork').val();
-      // var aspirations = $('#aspirations').val();
-      // var skills = $('#skills').val();
-      // var twitter = $('#twitter').val();
-      // var linkIn = $('#linkIn').val();
-      // var faceBook = $('#faceBook').val();
-      // console.log(firstname);
-      // update db with data from form
-      //  Listdb.update({_id:{d._id},{
-      //   $set: {
-      //     name: {
-      //     firstName: firstname,
-      //     lastName: lastname
-      //   },
-      //   email:email,
-      //   priorWork:priorWork,
-      //   aspirations: aspirations,
-      //   skills: [skills],
-      //   contact: {
-      //     twitter:twitter,
-      //     linkIn:linkIn,
-      //     faceBook:facebook
-      //   }
-      //   }
-      // });
-      //return false;
+      $('#editfirstName').val(data[0].name.firstName);
+      $('#editlastName').val(data[0].name.lastName);
+      $('#editemail').val(data[0].email);
+      $('#editpriorWork').val(data[0].priorWork);
+      $('#editaspirations').val(data[0].aspirations);
+      $('#editskills').val(data[0].skills);
+      $('#edittwitter').val(data[0].twitter);
+      $('#editlinkIn').val(data[0].linkIn);
+      $('#editfaceBook').val(data[0].faceBook);
+
     },
 
     // Edit a member - pencil - closing
     "click .closeEdit": function( e ) {
-      e.preventDefault();
       $('.edit').css('display','none');
       $('#overlay').css('display','none');
     },
