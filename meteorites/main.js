@@ -1,5 +1,5 @@
 
-
+ 
 if (Meteor.isClient) {
   Meteor.startup(function () {
     new WOW().init();
