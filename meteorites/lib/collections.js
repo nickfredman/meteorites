@@ -3,7 +3,8 @@
 Listdb = new Mongo.Collection('listdb');
 
 // data structure for reference:
-// Listdb.insert({
+// Listdb 
+//         {
       //   name: {
       //     firstName:String,
       //     lastName: String
@@ -11,12 +12,12 @@ Listdb = new Mongo.Collection('listdb');
       //   email:String,
       //   priorWork:String,
       //   aspirations: String,
-      //   skills: [Stringl,
+      //   skills: [String],
       //   contact: {
       //     twitter:String,
       //     linkIn:String,
       //     faceBook:String
       //   }
-      // });
+      // }
 	
 

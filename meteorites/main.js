@@ -17,6 +17,7 @@ if (Meteor.isClient) {
     }
   });
 
+  // get specific person ID
   Template.viewModal.helpers({
     viewamember: function() {
       var memberId = Session.get('selectedMember');
@@ -24,12 +25,12 @@ if (Meteor.isClient) {
     }
   });
 
+  // collect individual data based on selected person
   Template.body.events({
     //View a member
     "click .viewOverlay": function(e) {
       $('#overlay').css('display','block');
       $('.view').css('display','block');
-
       var d = Blaze.getData(event.target);
       Session.set('selectedMember', d._id); 
     }, 
@@ -40,41 +41,105 @@ if (Meteor.isClient) {
       $('.view').css('display','none');
     },
 
-    // Add a new member
-    // "click .createOverlay": function(e) {
-    //   e.preventDefault();
-    //   $('#overlay').css('display','block');
-    //   $('.create').css('display','block');
-    //   var d = Blaze.getData(event.target);
-    //   var data = Listdb.insert();
-    //   return data;
-    // },
+    //Add a new member - initial form display
+    "click .createOverlay": function(e) {
+      $('#overlay').css('display','block');
+      $('.create').css('display','block');
+    },
 
-    // // Add a new member - closing
-    // "click .closeCreate": function(e) {
-    //   e.preventDefault();
-    //   $('#overlay').css('display','none');
-    //   $('.create').css('display','none');
-    //   return false;
-    // },
+      // Add a new member - trigger is submit button
+      "click .createBtn": function(e) {
+      e.preventDefault();
+      $('#overlay').css('display','none');
+      $('.create').css('display','none');
+
+        // get new member data from form
+      var firstname = $('#firstName').val();
+      var lastname = $('#lastName').val();
+      var email = $('#email').val();
+      var priorWork = $('#priorWork').val();
+      var aspirations = $('#aspirations').val();
+      var skills = $('#skills').val();
+      var twitter = $('#twitter').val();
+      var linkIn = $('#linkIn').val();
+      var faceBook = $('#faceBook').val();
+        // add newmember data to db
+      Listdb.insert({
+        name: {
+          firstName:firstname,
+          lastName: lastname
+        },
+        email:email,
+        priorWork:priorWork,
+        aspirations: aspirations,
+        skills: skills,
+        contact: {
+          twitter:twitter,
+          linkIn:linkIn,
+          faceBook:faceBook
+        }
+      });      
+    },
+      // Add a new member - close the form via X
+      "click .closeCreate": function(e) {
+      e.preventDefault();
+      $('#overlay').css('display','none');
+      $('.create').css('display','none');
+    },
 
     // Edit a member 
     "click .editOverlay": function(e) {
       $('.view').css('display','none');
       $('.edit').css('display','block');
-      var memberId = Session.get('selectedMember');
-      var data = Listdb.find({_id:memberId}).fetch();
-      
-      $('#editfirstName').val(data[0].name.firstName);
-      $('#editlastName').val(data[0].name.lastName);
-      $('#editemail').val(data[0].email);
-      $('#editpriorWork').val(data[0].priorWork);
-      $('#editaspirations').val(data[0].aspirations);
-      $('#editskills').val(data[0].skills);
-      $('#edittwitter').val(data[0].twitter);
-      $('#editlinkIn').val(data[0].linkIn);
-      $('#editfaceBook').val(data[0].faceBook);
 
+      var memberId = Session.get('selectedMember');
+      var data = Listdb.findOne({_id:memberId});
+        // update display on page with new form data
+      $('#editfirstName').val(data.name.firstName);
+      $('#editlastName').val(data.name.lastName);
+      $('#editemail').val(data.email);
+      $('#editpriorWork').val(data.priorWork);
+      $('#editaspirations').val(data.aspirations);
+      $('#editskills').val(data.skills);
+      $('#edittwitter').val(data.twitter);
+      $('#editlinkIn').val(data.linkIn);
+      $('#editfaceBook').val(data.faceBook);
+    },
+
+    // submit edited data to db using submit button
+      // get edited values from form
+      "click .editBtn": function(e) {
+      $('.view').css('display','none');
+      $('.edit').css('display','block');
+      var memberId = Session.get('selectedMember');
+      var firstname = $('#editfirstName').val();
+      var lastname = $('#editlastName').val();
+      var email = $('#editemail').val();
+      var priorWork = $('#editpriorWork').val();
+      var aspirations = $('#editaspirations').val();
+      var skills = $('#editskills').val();
+      var twitter = $('#edittwitter').val();
+      var linkIn = $('#editlinkIn').val();
+      var faceBook = $('#editfaceBook').val();
+
+      // do the actual db update with edited form data
+      Listdb.update(memberId,
+          {$set: {
+            name: {
+              firstName:firstname,
+              lastName: lastname
+          },
+            email:email,
+            priorWork:priorWork,
+            aspirations: aspirations,
+            skills: skills,
+            contact: {
+              twitter:twitter,
+              linkIn:linkIn,
+              faceBook:faceBook
+          }
+        }
+      }); 
     },
 
     // Edit a member - pencil - closing
