@@ -9,97 +9,145 @@ if (Meteor.isClient) {
   // counter starts at 0
   Session.setDefault('counter', 0);
 
+  // get data from database and 
+  // display on the index.html
   Template.body.helpers({
     listdb: function() {
-
       return Listdb.find({});
+    }
+  });
+
+  Template.body.helpers({
+    viewamember: function() {
+      return "test";
     }
   });
 
   Template.body.events({
     //View a member
     "click .viewOverlay": function(e) {
+      e.preventDefault();
       $('#overlay').css('display','block');
       $('.view').css('display','block');
 
       var d = Blaze.getData(event.target);
-      console.log(d);
-      var data = Listdb.find({_id:d._id}).fetch();
+      var data = Listdb.findOne({_id:d._id});
       console.log(data);
-
+      return data;
     }, 
     
     // View a member - closing
     "click .closeView": function(e) {
-        $('#overlay').css('display','none');
-        $('.view').css('display','none');
+      e.preventDefault();
+      $('#overlay').css('display','none');
+      $('.view').css('display','none');
+      return false;
     },
 
     // Add a new member
-    "click .createOverlay": function(e) {
-        $('#overlay').css('display','block');
-        $('.create').css('display','block');
-    },
+    // "click .createOverlay": function(e) {
+    //   e.preventDefault();
+    //   $('#overlay').css('display','block');
+    //   $('.create').css('display','block');
+    //   var d = Blaze.getData(event.target);
+    //   var data = Listdb.insert();
+    //   return data;
+    // },
 
-    // Add a new member - closing
-    "click .closeCreate": function(e) {
-        $('#overlay').css('display','none');
-        $('.create').css('display','none');
-    },
+    // // Add a new member - closing
+    // "click .closeCreate": function(e) {
+    //   e.preventDefault();
+    //   $('#overlay').css('display','none');
+    //   $('.create').css('display','none');
+    //   return false;
+    // },
 
     // Edit a member 
-    "click .editOverlay": function( e ) {
-         $('.view').css('display','none');
-         $('.edit').css('display','block');
-
+    "click .editOverlay": function(e) {
+      e.preventDefault();
+      $('.view').css('display','none');
+      $('.edit').css('display','block');
+      var d = Blaze.getData(event.target);
+      console.log("member object:", d);
+      // get data from form
+      // var firstname = $('#firstName').val();
+      // var lastname = $('#lastName').val();
+      // var email = $('#email').val();
+      // var priorWork = $('#priorWork').val();
+      // var aspirations = $('#aspirations').val();
+      // var skills = $('#skills').val();
+      // var twitter = $('#twitter').val();
+      // var linkIn = $('#linkIn').val();
+      // var faceBook = $('#faceBook').val();
+      // console.log(firstname);
+      // update db with data from form
+      //  Listdb.update({_id:{d._id},{
+      //   $set: {
+      //     name: {
+      //     firstName: firstname,
+      //     lastName: lastname
+      //   },
+      //   email:email,
+      //   priorWork:priorWork,
+      //   aspirations: aspirations,
+      //   skills: [skills],
+      //   contact: {
+      //     twitter:twitter,
+      //     linkIn:linkIn,
+      //     faceBook:facebook
+      //   }
+      //   }
+      // });
+      return false;
     },
 
     // Edit a member - pencil - closing
     "click .closeEdit": function( e ) {
-        $('.edit').css('display','none');
-        $('#overlay').css('display','none');
+      e.preventDefault();
+      $('.edit').css('display','none');
+      $('#overlay').css('display','none');
     },
     
-    "submit .new-member": function(e) {
-      e.preventDefault();
+    // "submit .new-member": function(e) {
+    //   e.preventDefault();
 
-      var firstname = $('#firstName').val();
-      var lastname = $('#lastName').val();
-      var email = $('#email').val();
-      var priorWork = $('#priorWork').val();
-      var aspirations = $('#aspirations').val();
-      var skills = $('#skills').val();
-      var twitter = $('#twitter').val();
-      var linkIn = $('#linkIn').val();
-      var faceBook = $('#faceBook').val();
+    //   var firstname = $('#firstName').val();
+    //   var lastname = $('#lastName').val();
+    //   var email = $('#email').val();
+    //   var priorWork = $('#priorWork').val();
+    //   var aspirations = $('#aspirations').val();
+    //   var skills = $('#skills').val();
+    //   var twitter = $('#twitter').val();
+    //   var linkIn = $('#linkIn').val();
+    //   var faceBook = $('#faceBook').val();
 
-      Listdb.insert({
-        name: {
-          firstName:firstname,
-          lastName: lastname
-        },
-        email:email,
-        priorWork:priorWork,
-        aspirations: aspirations,
-        skills: skills,
-        contact: {
-          twitter:twitter,
-          linkIn:linkIn,
-          faceBook:facebook
-        }
-      });
+    //   Listdb.insert({
+    //     name: {
+    //       firstName:firstname,
+    //       lastName: lastname
+    //     },
+    //     email:email,
+    //     priorWork:priorWork,
+    //     aspirations: aspirations,
+    //     skills: skills,
+    //     contact: {
+    //       twitter:twitter,
+    //       linkIn:linkIn,
+    //       faceBook:facebook
+    //     }
+    //   });
 
-      $('#firstName').val("");
-      $('#lastName').val("");
-      $('#email').val("");
-      $('#priorWork').val("");
-      $('#aspirations').val("");
-      $('#skills').val("");
-      $('#twitter').val("");
-      $('#linkIn').val("");
-      $('#faceBook').val("");
+    //   $('#firstName').val("");
+    //   $('#lastName').val("");
+    //   $('#email').val("");
+    //   $('#priorWork').val("");
+    //   $('#aspirations').val("");
+    //   $('#skills').val("");
+    //   $('#twitter').val("");
+    //   $('#linkIn').val("");
+    //   $('#faceBook').val("");
 
-    },
+    // },
 
     "click .delete": function(e) {
       e.preventDefault();

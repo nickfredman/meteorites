@@ -112,7 +112,7 @@
 </template>
 
 <template name="editModal">
-    <div class="editable-modal">
+    <div class="editable-modal" data-in="{{_id}}">
         <div class="topButtons"><i class="fa fa-times closeEdit"></i></div>
         <h2>Edit Your Details</h2>
         <form>
@@ -133,18 +133,21 @@
 
 
 <template name="viewModal">
-    <div class="column third" data-in="{{_id}}">
+    <div class="column third viewmod" data-in="{{_id}}">
         <div class="topButtons"><i class="fa fa-pencil editOverlay"></i> &nbsp;<i class="fa fa-times closeView"></i></div>
         <div class="avatar">
             <!-- need image data -->
             <img src="/img/no_avatar.jpg">
         </div>
-        <span class="info first">Name: {{name.firstName}} {{name.firstName}}</span>
+        {{#each viewamember}}
+            {{name.firstName}}
+        {{/each}}
+        <!-- <span class="info first">Name: {{name.firstName}} {{name.firstName}}</span>
         <span class="info">Email: {{email}}</span>
         <span class="info">Prior Work Experience: {{priorwork}}</span>
         <span class="info">Aspirations: {{aspirations}}</span>
         <span class="info">Skills: {{skills}}</span>
-        <span class="info first"><a href="{{contact.linkIn}}"><i class="fa fa-linkedin-square fa-2x"></i></a> <a href="{{contact.faceBook}}"><i class="fa fa-facebook-square fa-2x"></i></a> <a href="{{contact.twitter}}"><i class="fa fa-twitter-square fa-2x"></i></a></span>
+        <span class="info first"><a href="{{contact.linkIn}}"><i class="fa fa-linkedin-square fa-2x"></i></a> <a href="{{contact.faceBook}}"><i class="fa fa-facebook-square fa-2x"></i></a> <a href="{{contact.twitter}}"><i class="fa fa-twitter-square fa-2x"></i></a></span> -->
 
     </div>
 </template>
