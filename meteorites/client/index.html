@@ -1,0 +1,157 @@
+<!-- Can't set DOCTYPE here.  (Meteor sets <!DOCTYPE html for you) -->
+<!-- <!doctype html> -->
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<!-- meteor gives this error: bad formatting in HTML template -->
+<!-- <html class="no-js" lang=""> -->
+<!--<![endif]-->
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>RU Meteorites v2</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="stylesheets/normalize.min.css">
+        <link rel="stylesheet" href="stylesheets/main.css">
+        <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway:400,300" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.1/animate.css">
+        <!-- <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script> -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/wow/1.0.3/wow.min.js"></script>
+    </head>
+    <body>
+        <div id="overlay"></div>
+        <div class="modal create wow fadeIn">
+            {{> createModal }}
+        </div>
+        <div class="modal view wow fadeIn">
+            {{> viewModal }}
+        </div>
+        <div class="modal edit wow fadeIn">
+            {{> editModal }}
+        </div>
+        <nav>
+            <div class="container">
+                <a href="#"><img src="img/logo_nav.png" class="logo" alt="Refactor U Meteorites"></a>
+                <ul>
+                    <li><a href="#" class="wow rubberBand createOverlay">Add A New Meteorite</a></li>
+                </ul>
+            </div>
+        </nav>
+        <section id="hero">
+            <div class="container">
+                <h1>Some slogan goes here</h1>
+                <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur vitae sunt eligendi debitis totam. Assumenda accusamus, id rem veniam voluptate.</h4>
+            </div>
+        </section>
+        <section id="main">
+            <div class="container">
+                <div id="search">
+                    <form>
+                        <label for="search" class="magnify"><i class="fa fa-search"></i></label><input placeholder="Search Meteorites" id="filter-by" class="input-lg" tabindex="1" name="search">
+                    </form>
+                </div>
+                <h1>Meet the Refactor U Meteorites</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam molestias laudantium fuga accusantium iure, ex a voluptas eligendi excepturi eos. Culpa cupiditate molestias facere nesciunt totam, maiores laborum, possimus unde.</p>
+                <div class="row clearfix">
+
+                    {{#each listdb}}
+                        {{> member}}
+                    {{/each}}
+
+                </div>
+            </div>
+
+        </section>
+
+        <footer>
+
+        </footer>
+
+    <div class="hideme">
+        {{>viewModal}}
+        {{>editModal}}
+        {{>createModal}}
+    </div>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    </body>
+<!-- </html> -->
+
+<template name="member">
+    <div class="column third" data-in="{{_id}}">
+        <div class="avatar wow bounceIn" data-wow-offset="100">
+            <!-- need image data -->
+            <a href="#" class="viewOverlay"><img src="/img/no_avatar.jpg"></a>
+        </div>
+        <div class="member_name">{{name.firstName}} {{name.lastName}}
+        </div>
+
+    </div>
+</template>
+
+<template name="createModal">
+    <div class="create-modal">
+        <div class="topButtons"><i class="fa fa-times closeCreate"></i></div>
+        <h2>Add A New Meteorite</h2>
+        <form>
+            <input type="text" id="firstName" placeholder="First Name">
+            <input type="text" id="lastName" placeholder="Last Name">
+            <input type="email" id="email" placeholder="Please enter your email address">
+            <textarea type="text" id="priorWork" placeholder="Please list any prior experience"></textarea>
+            <input type="text" id="aspirations" placeholder="List your aspirations">
+            <input type="text" id="skills" placeholder="Skills">
+            <input type="text" id="twitter" placeholder="Twitter">
+            <input type="url" id="linkIn" placeholder="LinkedIn">
+            <input type="url" id="faceBook" placeholder="Facebook">
+            <button>Submit</button>
+        </form>
+    </div>
+</template>
+
+<template name="editModal">
+    <div class="editable-modal" data-in="{{_id}}">
+        <div class="topButtons"><i class="fa fa-times closeEdit"></i></div>
+        <h2>Edit Your Details</h2>
+        <form>
+            <input type="text" id="editfirstName" placeholder="First Name">
+            <input type="text" id="editlastName" placeholder="Last Name">
+            <input type="email" id="editemail" placeholder="Please enter your email address">
+            <textarea type="text" id="editpriorWork" placeholder="Please list any prior experience"></textarea>
+            <input type="text" id="editaspirations" placeholder="List your aspirations">
+            <input type="text" id="editskills" placeholder="Skills">
+            <input type="text" id="edittwitter" placeholder="Twitter">
+            <input type="url" id="editlinkIn" placeholder="LinkedIn">
+            <input type="url" id="editfaceBook" placeholder="Facebook">
+            <button>Submit</button>
+            <p><a href="#">Delete Member</a></p>
+        </form>
+    </div>
+</template>
+
+
+<template name="viewModal">
+    <div class="column third" data-in="{{_id}}">
+        <div class="topButtons"><i class="fa fa-pencil editOverlay"></i> &nbsp;<i class="fa fa-times closeView"></i></div>
+        <div class="avatar">
+            <!-- need image data -->
+            <img src="/img/no_avatar.jpg">
+        </div>
+        {{#each viewamember}}
+            <span class="info first">Name: {{name.firstName}} {{name.firstName}}</span>
+            <span class="info">Email: {{email}}</span>
+            <span class="info">Prior Work Experience: {{priorwork}}</span>
+            <span class="info">Aspirations: {{aspirations}}</span>
+            <span class="info">Skills: {{skills}}</span>
+            <!-- need to implement social media link functionality -->
+            <span class="info first"><a href="{{contact.linkIn}}"><i class="fa fa-linkedin-square fa-2x"></i></a> <a href="{{contact.faceBook}}"><i class="fa fa-facebook-square fa-2x"></i></a> <a href="{{contact.twitter}}"><i class="fa fa-twitter-square fa-2x"></i></a></span>
+        {{/each}}
+    </div>
+</template>
