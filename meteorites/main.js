@@ -6,42 +6,46 @@ if (Meteor.isClient) {
   });
 
 
+    // Add a new member
+    // $( document ).on( "click", ".createOverlay", function( event ) {
+    //     $('#overlay').css('display','block');
+    //     $('.create').css('display','block');
 
-    $( document ).on( "click", ".createOverlay", function( event ) {
-        $('#overlay').css('display','block');
-        $('.create').css('display','block');
+    // });
 
-    });
+    // Add a new member - closing
+    // $( document ).on( "click", ".closeCreate", function( event ) {
+    //     $('#overlay').css('display','none');
+    //     $('.create').css('display','none');
 
-    $( document ).on( "click", ".viewOverlay", function( event ) {
-        $('#overlay').css('display','block');
-        $('.view').css('display','block');
+    // });
 
-    });
+    // View a member
+    // $( document ).on( "click", ".viewOverlay", function( event ) {
+    //     $('#overlay').css('display','block');
+    //     $('.view').css('display','block');
 
-    $( document ).on( "click", ".closeCreate", function( event ) {
-        $('#overlay').css('display','none');
-        $('.create').css('display','none');
+    // });
 
-    });
+    // // View a member - closing
+    // $( document ).on( "click", ".closeView", function( event ) {
+    //     $('#overlay').css('display','none');
+    //     $('.view').css('display','none');
+    // });
 
-    $( document ).on( "click", ".closeView", function( event ) {
-        $('#overlay').css('display','none');
-        $('.view').css('display','none');
+    // Edit a member - pencil
+    // $( document ).on( "click", ".editOverlay", function( event ) {
+    //     $('.view').css('display','none');
+    //     $('.edit').css('display','block');
 
-    });
+    // });
 
-    $( document ).on( "click", ".editOverlay", function( event ) {
-        $('.view').css('display','none');
-        $('.edit').css('display','block');
+    // // Edit a member - pencil - closing
+    // $( document ).on( "click", ".closeEdit", function( event ) {
+    //     $('.edit').css('display','none');
+    //     $('#overlay').css('display','none');
 
-    });
-
-    $( document ).on( "click", ".closeEdit", function( event ) {
-        $('.edit').css('display','none');
-        $('#overlay').css('display','none');
-
-    });
+    // });
 
 
   // counter starts at 0
@@ -55,6 +59,49 @@ if (Meteor.isClient) {
   });
 
   Template.body.events({
+    //View a member
+    "click .viewOverlay": function(e) {
+      $('#overlay').css('display','block');
+      $('.view').css('display','block');
+
+      var d = Blaze.getData(event.target);
+      console.log(d);
+      var data = Listdb.find({_id:d._id}).fetch();
+      console.log(data);
+
+    }, 
+    
+    // View a member - closing
+    "click .closeView": function(e) {
+        $('#overlay').css('display','none');
+        $('.view').css('display','none');
+    },
+
+    // Add a new member
+    "click .createOverlay": function(e) {
+        $('#overlay').css('display','block');
+        $('.create').css('display','block');
+    },
+
+    // Add a new member - closing
+    "click .closeCreate": function(e) {
+        $('#overlay').css('display','none');
+        $('.create').css('display','none');
+    },
+
+    // Edit a member 
+    "click .editOverlay": function( e ) {
+         $('.view').css('display','none');
+         $('.edit').css('display','block');
+
+    },
+
+    // Edit a member - pencil - closing
+    "click .closeEdit": function( e ) {
+        $('.edit').css('display','none');
+        $('#overlay').css('display','none');
+    },
+    
     "submit .new-member": function(e) {
       e.preventDefault();
 
